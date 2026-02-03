@@ -287,5 +287,8 @@ func (r *Repository) init() error {
 	if _, err = r.db.Exec("CREATE TABLE IF NOT EXISTS sessions (token VARCHAR PRIMARY KEY, expires TIMESTAMP, username VARCHAR)"); err != nil {
 		return err
 	}
+	if _, err = r.db.Exec("CREATE TABLE IF NOT EXISTS shoping_lists (id VARCHAR PRIMARY KEY, name VARCHAR, items TEXT)"); err != nil {
+		return err
+	}
 	return nil
 }
