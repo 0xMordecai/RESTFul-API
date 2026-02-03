@@ -1,8 +1,11 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
+	sq "github.com/Masterminds/squirrel"
+	_ "github.com/mattn/go-sqlite3"
 	"math/rand/v2"
 	"net/http"
 	"strconv"
