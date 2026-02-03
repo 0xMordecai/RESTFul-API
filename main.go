@@ -39,6 +39,9 @@ type ShoppingListPatch struct {
 type ListPushAction struct {
 	Item string `json:"item"`
 }
+type Repository struct {
+	db *sql.DB
+}
 
 var allData []ShoppingList
 var sessions = map[string]*Session{}
