@@ -267,4 +267,15 @@ func handleListPush(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	http.Error(w, "List not found", http.StatusNotFound)
+
+}
+
+// Adding persistence to the API
+
+func NewRepository(database string) (*Repository, error) {
+	db, err := sql.Open("sqlite3", database)
+	if err != nil {
+		return nil, err
+	}
+	return &Repository{db}, nil
 }
