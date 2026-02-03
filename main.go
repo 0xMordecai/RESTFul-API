@@ -20,8 +20,8 @@ type Session struct {
 	Username string
 }
 type LoginRequest struct {
-	Username string `json: "username"`
-	Password string `json: "password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type ShoppingList struct {
@@ -57,7 +57,7 @@ func main() {
 	http.HandleFunc("PUT /v1/lists/{id}", adminRequired(handleUpdateList))
 	//	The Patch endpoint
 	http.HandleFunc("PATCH /v1/lists/{id}", adminRequired(handlePatchList))
-	//	The retriver endpoint
+	//	The retriever endpoint
 	http.HandleFunc("GET /v1/lists/{id}", authRequired(handleGetList))
 	//	the add-to-list action endpoint
 	http.HandleFunc("POST /v1/lists/{id}/push", adminRequired(handleListPush))
