@@ -284,5 +284,8 @@ func (r *Repository) init() error {
 	if _, err := r.db.Exec("CREATE TABLE IF NOT EXISTS users (role VARCHAR,username VARCHAR PRIMARY KEY, password VARCHAR)"); err != nil {
 		return err
 	}
+	if _, err = r.db.Exec("CREATE TABLE IF NOT EXISTS sessions (token VARCHAR PRIMARY KEY, expires TIMESTAMP, username VARCHAR)"); err != nil {
+		return err
+	}
 	return nil
 }
