@@ -279,3 +279,7 @@ func NewRepository(database string) (*Repository, error) {
 	}
 	return &Repository{db}, nil
 }
+
+func (r *Repository) init() error {
+	return nil
+}
