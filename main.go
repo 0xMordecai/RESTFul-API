@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	_ "github.com/Masterminds/squirrel"
-	_ "github.com/mattn/go-sqlite3"
 	"math/rand/v2"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
+
+	_ "github.com/Masterminds/squirrel"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type User struct {
@@ -278,17 +279,4 @@ func NewRepository(database string) (*Repository, error) {
 		return nil, err
 	}
 	return &Repository{db}, nil
-}
-
-func (r *Repository) init() error {
-	if _, err := r.db.Exec("CREATE TABLE IF NOT EXISTS users (role VARCHAR,username VARCHAR PRIMARY KEY, password VARCHAR)"); err != nil {
-		return err
-	}
-	if _, err = r.db.Exec("CREATE TABLE IF NOT EXISTS sessions (token VARCHAR PRIMARY KEY, expires TIMESTAMP, username VARCHAR)"); err != nil {
-		return err
-	}
-	if _, err = r.db.Exec("CREATE TABLE IF NOT EXISTS shoping_lists (id VARCHAR PRIMARY KEY, name VARCHAR, items TEXT)"); err != nil {
-		return err
-	}
-	return nil
 }
