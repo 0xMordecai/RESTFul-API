@@ -20,6 +20,7 @@ type User struct {
 	Password string
 }
 type Session struct {
+	Token    string
 	Expires  time.Time
 	Username string
 }
@@ -293,4 +294,11 @@ func (r *Repository) Init() error {
 		return err
 	}
 	return nil
+}
+
+// method to store session
+func (r *Repository) AddSession(username string) (*Session, error) {
+	token := strconv.Itoa(rand.IntN(100000000000))
+	session := Session{Token: token, Expires: time.Now().Add(7 * 24 * time.Hour), Username: username}
+	return &session, nil
 }
