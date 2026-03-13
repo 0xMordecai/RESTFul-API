@@ -315,5 +315,8 @@ func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) erro
 	if patch.Name != nil {
 		query = query.Set("name", *patch.Name)
 	}
+	if patch.Items != nil {
+		query = query.Set("items", strings.Join(*patch.Items,","))
+	}
 	return nil
 }
