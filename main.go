@@ -316,7 +316,11 @@ func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) erro
 		query = query.Set("name", *patch.Name)
 	}
 	if patch.Items != nil {
-		query = query.Set("items", strings.Join(*&patch.Items, ","))
+		query = query.Set("items", strings.Join(patch.Items, ","))
+	}
+	_, err := query.RunWith(r.db).Exec()
+	if err != nil {
+		return err
 	}
 	return nil
 }
