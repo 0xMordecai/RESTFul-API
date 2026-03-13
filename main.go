@@ -280,3 +280,8 @@ func NewRepository(database string) (*Repository, error) {
 	}
 	return &Repository{db}, nil
 }
+
+// Set up the database tables
+func (r *Repository) Init() error {
+	return nil
+}
