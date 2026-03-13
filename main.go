@@ -307,7 +307,7 @@ func (r *Repository) AddSession(username string) (*Session, error) {
 	}
 
 	return &session, nil
-}PatchShoppingList
+}
 
 // method to patch the shopping list
 func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) error {
@@ -316,7 +316,7 @@ func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) erro
 		query = query.Set("name", *patch.Name)
 	}
 	if patch.Items != nil {
-		query = query.Set("items", strings.Join(*patch.Items,","))
+		query = query.Set("items", strings.Join(*&patch.Items, ","))
 	}
 	return nil
 }
