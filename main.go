@@ -283,5 +283,8 @@ func NewRepository(database string) (*Repository, error) {
 
 // Set up the database tables
 func (r *Repository) Init() error {
+	if _, err := r.db.Exec("CREATE TABLE IF NOT EXIST users (role VARCHAR, username VARCHAR PRIMARY KEY, password VARCHAR)"); err != nil {
+		return err
+	}
 	return nil
 }
