@@ -308,3 +308,9 @@ func (r *Repository) AddSession(username string) (*Session, error) {
 
 	return &session, nil
 }
+
+// method to patch the shopping list
+func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) error {
+
+	return nil
+}
