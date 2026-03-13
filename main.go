@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	_ "github.com/Masterminds/squirrel"
+	sq "github.com/Masterminds/squirrel"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -300,5 +300,7 @@ func (r *Repository) Init() error {
 func (r *Repository) AddSession(username string) (*Session, error) {
 	token := strconv.Itoa(rand.IntN(100000000000))
 	session := Session{Token: token, Expires: time.Now().Add(7 * 24 * time.Hour), Username: username}
+	query := sq.Insert("sessions").Columns("token", "expires", "username").Values(session.Token, session.Expires, session.Username)
+
 	return &session, nil
 }
