@@ -301,6 +301,10 @@ func (r *Repository) AddSession(username string) (*Session, error) {
 	token := strconv.Itoa(rand.IntN(100000000000))
 	session := Session{Token: token, Expires: time.Now().Add(7 * 24 * time.Hour), Username: username}
 	query := sq.Insert("sessions").Columns("token", "expires", "username").Values(session.Token, session.Expires, session.Username)
+	_, err := query.RunWith(r.db).Exec()
+	if err != nil {
+		return nil, err
+	}
 
 	return &session, nil
 }
