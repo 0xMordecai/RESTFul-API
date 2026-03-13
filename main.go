@@ -307,10 +307,13 @@ func (r *Repository) AddSession(username string) (*Session, error) {
 	}
 
 	return &session, nil
-}
+}PatchShoppingList
 
 // method to patch the shopping list
 func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) error {
-
+	query := sq.Update("shoping_lists").Where(sq.Eq{"id": id})
+	if patch.Name != nil {
+		query = query.Set("name", *patch.Name)
+	}
 	return nil
 }
