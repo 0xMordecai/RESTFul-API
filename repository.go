@@ -51,6 +51,11 @@ func (r *Repository) AddSession(username string) (*Session, error) {
 
 	return &session, nil
 }
+func (r *Repository) GetSession(token string) (*Session, error) {
+	session := Session{}
+
+	return &session, nil
+}
 
 // method to patch the shopping list
 func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) error {
