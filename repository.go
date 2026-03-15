@@ -68,6 +68,12 @@ func (r *Repository) CreateSoppingLists(list *ShoppingList) error {
 }
 
 func (r *Repository) GetAllShoppingLists() ([]ShoppingList, error) {
+	query := sq.Select("id", "name", "items").From("shopping_lists")
+	rows, err := query.RunWith(r.db).Query()
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
 	var lists []ShoppingList
 	return lists, nil
 }
