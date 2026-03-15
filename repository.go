@@ -92,6 +92,9 @@ func (r *Repository) GetAllShoppingLists() ([]ShoppingList, error) {
 }
 
 func (r *Repository) GetShoppingList(id string) (*ShoppingList, error) {
+	query := sq.Select("id", "name", "items").From("shopping_lists").Where(sq.Eq{"id": id})
+	row := query.RunWith(r.db).QueryRow()
+
 	var list ShoppingList
 
 	return &list, nil
