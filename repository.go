@@ -74,7 +74,15 @@ func (r *Repository) GetAllShoppingLists() ([]ShoppingList, error) {
 		return nil, err
 	}
 	defer rows.Close()
+
 	var lists []ShoppingList
+	for rows.Next() {
+		var list ShoppingList
+		var idStr, itemsStr string
+		if err := rows.Scan(&idStr, &list.Name, &itemsStr); err != nil {
+			return nil, err
+		}
+	}
 	return lists, nil
 }
 
