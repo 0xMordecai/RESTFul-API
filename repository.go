@@ -62,7 +62,9 @@ func (r *Repository) GetSession(token string) (*Session, error) {
 }
 
 func (r *Repository) CreateSoppingLists(list *ShoppingList) error {
-	return nil
+	query := sq.Insert("shopping_lists").Columns("id", "name", "items").Values(strconv.Itoa(list.ID), list.Name, strings.Join(list.Items, ","))
+	_, err := query.RunWith(r.db).Exec()
+	return err
 }
 
 // method to patch the shopping list
