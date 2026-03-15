@@ -107,6 +107,12 @@ func (r *Repository) GetShoppingList(id string) (*ShoppingList, error) {
 	return &list, nil
 }
 
+func (r *Repository) UpdateShoppingList(id string, list *ShoppingList) error {
+	query := sq.Update("shopping_lists").Where(sq.Eq{"id": id}).Set("name", list.Name).Set("items", strings.Join(list.Items, ","))
+	_, err := query.RunWith(r.db).Exec()
+	return err
+}
+
 // method to patch the shopping list
 func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) error {
 	query := sq.Update("shoping_lists").Where(sq.Eq{"id": id})
