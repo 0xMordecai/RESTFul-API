@@ -100,7 +100,10 @@ func (r *Repository) GetShoppingList(id string) (*ShoppingList, error) {
 	if err := row.Scan(&idStr, &list.Name, &itemsStr); err != nil {
 		return nil, err
 	}
-
+	list.ID, _ = strconv.Atoi(idStr)
+	if itemsStr != "" {
+		list.Items = strings.Split(itemsStr, ",")
+	}
 	return &list, nil
 }
 
