@@ -61,6 +61,10 @@ func (r *Repository) GetSession(token string) (*Session, error) {
 	return &session, nil
 }
 
+func (r *Repository) CreateSoppingLists(list *ShoppingList) error {
+	return nil
+}
+
 // method to patch the shopping list
 func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) error {
 	query := sq.Update("shoping_lists").Where(sq.Eq{"id": id})
