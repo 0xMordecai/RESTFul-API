@@ -112,6 +112,11 @@ func (r *Repository) UpdateShoppingList(id string, list *ShoppingList) error {
 	_, err := query.RunWith(r.db).Exec()
 	return err
 }
+func (r *Repository) DeleteShoppingList(id string) error {
+	query := sq.Delete("shopping_lists").Where(sq.Eq{"id": id})
+	_, err := query.RunWith(r.db).Exec()
+	return err
+}
 
 // method to patch the shopping list
 func (r *Repository) PatchShoppingList(id string, patch *ShoppingListPatch) error {
