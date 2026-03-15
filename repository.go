@@ -96,6 +96,10 @@ func (r *Repository) GetShoppingList(id string) (*ShoppingList, error) {
 	row := query.RunWith(r.db).QueryRow()
 
 	var list ShoppingList
+	var idStr, itemsStr string
+	if err := row.Scan(&idStr, &list.Name, &itemsStr); err != nil {
+		return nil, err
+	}
 
 	return &list, nil
 }
