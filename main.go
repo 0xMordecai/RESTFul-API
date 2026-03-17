@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/rs/cors"
 )
 
 type User struct {
@@ -64,7 +66,24 @@ func main() {
 	//	the add-to-list action endpoint
 	mux.HandleFunc("POST /v1/lists/{id}/push", adminRequired(handleListPush))
 	fmt.Println("listening on port :8888")
-	http.ListenAndServe(":8888", nil)
+	http.ListenAndServe(":8888", mux)
+
+	corsMiddleware := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:3000"},
+		AllowedMethods: []string{
+			http.MethodGet,
+			http.MethodPost,
+			http.MethodPut,
+			http.MethodPatch,
+			http.MethodDelete,
+			http.MethodOptions,
+		},
+		AllowedHeaders: []string{
+			"Content-Type",
+			"Authorization",
+		},
+		MaxAge: 300,
+	})
 }
 
 // Authentication Handlers
