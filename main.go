@@ -46,22 +46,23 @@ var allUsers = map[string]*User{
 }
 
 func main() {
+	mux := http.NewServeMux()
 	// The login endpoint
-	http.HandleFunc("POST /login", handleLogin)
+	mux.HandleFunc("POST /login", handleLogin)
 	// The creation endpoint
-	http.HandleFunc("POST /v1/lists", adminRequired(handleCreateList))
+	mux.HandleFunc("POST /v1/lists", adminRequired(handleCreateList))
 	// The list endpoint
-	http.HandleFunc("GET /v1/lists", authRequired(handleListLists))
+	mux.HandleFunc("GET /v1/lists", authRequired(handleListLists))
 	// The delete endpoint
-	http.HandleFunc("DELETE /v1/lists/{id}", adminRequired(handleDeleteList))
+	mux.HandleFunc("DELETE /v1/lists/{id}", adminRequired(handleDeleteList))
 	//	The update endpoint
-	http.HandleFunc("PUT /v1/lists/{id}", adminRequired(handleUpdateList))
+	mux.HandleFunc("PUT /v1/lists/{id}", adminRequired(handleUpdateList))
 	//	The Patch endpoint
-	http.HandleFunc("PATCH /v1/lists/{id}", adminRequired(handlePatchList))
+	mux.HandleFunc("PATCH /v1/lists/{id}", adminRequired(handlePatchList))
 	//	The retriever endpoint
-	http.HandleFunc("GET /v1/lists/{id}", authRequired(handleGetList))
+	mux.HandleFunc("GET /v1/lists/{id}", authRequired(handleGetList))
 	//	the add-to-list action endpoint
-	http.HandleFunc("POST /v1/lists/{id}/push", adminRequired(handleListPush))
+	mux.HandleFunc("POST /v1/lists/{id}/push", adminRequired(handleListPush))
 	fmt.Println("listening on port :8888")
 	http.ListenAndServe(":8888", nil)
 }
