@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/rs/cors"
+	"golang.org/x/crypto/acme/autocert"
 )
 
 type User struct {
@@ -84,6 +85,19 @@ func main() {
 		},
 		MaxAge: 300,
 	})
+
+	certManager := autocert.Manager{
+		Prompt:     autocert.AcceptTOS,
+		HostPolicy: autocert.HostWhitelist("ourdomain.com"),
+		Cache:      autocert.DirCache("certs"),
+	}
+	corsHandler := corsMiddleware.Handler(mux)
+
+	server := &http.Server{
+		Addr:      ":https",
+		Handler:   corsHandler,
+		TLSConfig: certManager.TLSConfig(),
+	}
 }
 
 // Authentication Handlers
