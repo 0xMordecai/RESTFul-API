@@ -98,6 +98,8 @@ func main() {
 		Handler:   corsHandler,
 		TLSConfig: certManager.TLSConfig(),
 	}
+	go http.ListenAndServe(":http", certManager.HTTPHandler(nil))
+	server.ListenAndServeTLS("", "")
 }
 
 // Authentication Handlers
